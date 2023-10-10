@@ -1,0 +1,8 @@
+build/**
+node_modules/**
+config/
+
+langs/
+src/**/*.test.js
+public/
+testDemo/**/*.test.js

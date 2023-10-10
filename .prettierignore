@@ -1,0 +1,22 @@
+src/services/
+langs/
+src/redux/**
+config/
+
+# Dirs
+node_modules/
+dist/
+public/
+
+# Files
+.eslintrc
+.gitignore
+.npmrc
+.prettierignore
+.prettierrc
+.idea
+.vscode
+*/.DS_Store
+.DS_Store
+.bak
+.png
