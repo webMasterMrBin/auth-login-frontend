@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { message } from 'antd';
 import Cookies from 'js-cookie';
 
 const Demo: FC = () => {
@@ -55,11 +54,11 @@ const Demo: FC = () => {
   return (
     <div>
       <div>
-        <span>用户名</span>
+        <span>username</span>
         <input value={username} type="text" onChange={e => setUsername(e.target.value)} />
       </div>
       <div>
-        <span>密码</span>
+        <span>password</span>
         <input type="text" onChange={e => setPassword(e.target.value)} />
       </div>
 
