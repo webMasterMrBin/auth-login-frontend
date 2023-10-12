@@ -38,8 +38,6 @@ const Demo: FC = () => {
       .then(d => {
         window.alert(d.message);
       });
-
-    // TODO并发登录
   };
 
   const handleAuth = () => {
