@@ -120,6 +120,7 @@ module.exports = {
               },
             }
           },
+          'postcss-loader'
         ],
       },
       {

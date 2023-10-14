@@ -6,3 +6,6 @@ langs/
 src/**/*.test.js
 public/
 testDemo/**/*.test.js
+.babelrc.js
+postcss.config.js
+tailwind.config.js

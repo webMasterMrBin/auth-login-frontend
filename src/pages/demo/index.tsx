@@ -1,5 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, Suspense } from 'react';
 import Cookies from 'js-cookie';
+import { Input } from 'antd';
+import { testModule } from './index.module.css';
 
 const Demo: FC = () => {
   const [username, setUsername] = useState('');
@@ -51,14 +53,19 @@ const Demo: FC = () => {
       });
   };
 
+  const handleTestSession = () => {
+    fetch('/api/session');
+  }
+
   return (
     <div>
+      <Input placeholder="555" size="large" />
       <div>
         <span>username</span>
         <input value={username} type="text" onChange={e => setUsername(e.target.value)} />
       </div>
       <div>
-        <span>password</span>
+        <span className={`text-blue-700 ml-2 ${testModule}`}>password</span>
         <input type="text" onChange={e => setPassword(e.target.value)} />
       </div>
 
@@ -66,6 +73,7 @@ const Demo: FC = () => {
       <button onClick={handleSignIn}>登录</button>
 
       <button onClick={handleAuth}>登录成功后发起其他请求 校验登录token状态</button>
+      <button onClick={handleTestSession}>test session</button>
     </div>
   );
 };

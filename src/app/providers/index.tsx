@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorProvider from './ErrorProvider';
 import { Demo } from 'src/pages/demo';
+import '../styles/index.css';
 
 const App: FC = () => {
   return (
