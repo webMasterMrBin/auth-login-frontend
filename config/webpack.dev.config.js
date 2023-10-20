@@ -41,6 +41,7 @@ module.exports = {
   devtool: 'eval-source-map',
   // 开发服务器
   devServer: {
+    // https: true,
     client: {
       reconnect: 3,
     },

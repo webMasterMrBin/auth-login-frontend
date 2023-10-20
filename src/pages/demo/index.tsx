@@ -53,8 +53,20 @@ const Demo: FC = () => {
       });
   };
 
-  const handleTestSession = () => {
-    fetch('/api/session');
+  const handleLogout = () => {
+    fetch('/api/logout', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+    }).then(res => res.json())
+    .then(d => {
+      window.alert(d.message);
+    });
+  }
+
+  const handleCaptcha = () => {
+    fetch('/api/captcha')
   }
 
   return (
@@ -73,7 +85,8 @@ const Demo: FC = () => {
       <Button onClick={handleSignIn}>登录</Button>
 
       <Button onClick={handleAuth}>登录成功后发起其他请求 校验登录token状态</Button>
-      <Button onClick={handleTestSession}>test session</Button>
+      <Button onClick={handleLogout}>注销</Button>
+      <Button onClick={handleCaptcha}>验证码</Button>
     </div>
   );
 };
