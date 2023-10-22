@@ -13,7 +13,7 @@ const SwrProvider: FC<React.PropsWithChildren> = ({ children }) => {
     <SWRConfig
       value={{
         fetcher,
-        revalidateOnFocus: false,
+        // revalidateOnFocus: false,
         // shouldRetryOnError: false,
       }}
     >

@@ -5,7 +5,7 @@ import { Google, Github } from './Icons';
 import { container } from './LoginForm.module.css';
 import { useForm, Controller } from 'react-hook-form';
 import { CustomErrorMessage } from 'src/shared/ui/CustomErrorMessage/CustomErrorMessage';
-import classname from 'classnames';
+import { useRegister } from '../../api';
 
 const LoginForm: FC = () => {
   // 是否是注册状态 默认登录态
@@ -24,11 +24,24 @@ const LoginForm: FC = () => {
       confirmPassword: '',
     },
   });
+  const { trigger: register, isMutating: isRegisterMutating } = useRegister();
 
   console.log('errors', errors);
 
   const onSubmit = v => {
     console.log(v);
+    if (isRegister) {
+      register({
+        params: {
+          username: v.username,
+          password: v.password,
+        },
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
   };
 
   const handleToggleType = () => {
@@ -103,7 +116,9 @@ const LoginForm: FC = () => {
               rules={{
                 validate: value => {
                   const password = getValues('password');
-                  return password !== value && 'check confirm password';
+                  console.log('value', value);
+                  console.log('password', password);
+                  return password !== value ? 'check confirm password' : true;
                 },
                 required: 'confirm password is required',
                 pattern: {
