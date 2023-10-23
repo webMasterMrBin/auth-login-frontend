@@ -4,14 +4,14 @@ import SwrProvider from './SwrProvider';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorProvider from './ErrorProvider';
 // import { Demo } from 'src/pages/demo';
-import { Login } from 'src/pages/login';
+import RouteProvider from './RouteProvider';
 import '../styles/index.css';
 
 const App: FC = () => {
   return (
     <ErrorBoundary fallbackRender={ErrorProvider}>
       <SwrProvider>
-        <Login />
+        <RouteProvider />
       </SwrProvider>
     </ErrorBoundary>
   );

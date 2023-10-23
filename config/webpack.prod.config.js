@@ -74,12 +74,13 @@ module.exports = {
             options: {
               modules: {
                 auto: true,
-                localIdentName: '[path][name]__[local]',
+                localIdentName: '[hash:base64]',
                 namedExport: true,
                 exportLocalsConvention: 'camelCaseOnly'
               },
             }
           },
+          'postcss-loader'
         ],
       },
       {

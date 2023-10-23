@@ -1,11 +1,11 @@
 import React, { FC, useState, useReducer, useEffect } from 'react';
-import { Input } from 'antd';
+import { Input, Spin } from 'antd';
 import { UserOutlined, KeyOutlined } from '@ant-design/icons';
 import { Google, Github } from './Icons';
 import { container } from './LoginForm.module.css';
 import { useForm, Controller } from 'react-hook-form';
 import { CustomErrorMessage } from 'src/shared/ui/CustomErrorMessage/CustomErrorMessage';
-import { useRegister } from '../../api';
+import { useRegister, useLogin } from '../../api';
 
 const LoginForm: FC = () => {
   // 是否是注册状态 默认登录态
@@ -25,13 +25,15 @@ const LoginForm: FC = () => {
     },
   });
   const { trigger: register, isMutating: isRegisterMutating } = useRegister();
+  const { trigger: login, isMutating: isLoginMutating } = useLogin();
 
   console.log('errors', errors);
 
-  const onSubmit = v => {
+  const onSubmit = async v => {
     console.log(v);
+    // 注册后再自动登录
     if (isRegister) {
-      register({
+      await register({
         params: {
           username: v.username,
           password: v.password,
@@ -42,6 +44,19 @@ const LoginForm: FC = () => {
         },
       });
     }
+
+    await login({
+      params: {
+        username: v.username,
+        password: v.password,
+      },
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    location.href = '/chatroom';
   };
 
   const handleToggleType = () => {
@@ -144,9 +159,11 @@ const LoginForm: FC = () => {
           </>
         )}
 
-        <button type="submit" className="rounded-xl w-full h-12 bg-cyan-600 text-white hover:text-white mt-4">
-          {loginText}
-        </button>
+        <Spin spinning={isRegisterMutating || isLoginMutating}>
+          <button type="submit" className="rounded-xl w-full h-12 bg-cyan-600 text-white hover:text-white mt-4">
+            {loginText}
+          </button>
+        </Spin>
 
         <div className="text-center mt-4">
           <span className="text-gray-400">{isRegister ? 'Already have an account?' : `Don't have an account?`}</span>
@@ -155,7 +172,7 @@ const LoginForm: FC = () => {
           </span>
         </div>
 
-        <div className="flex items-center mt-4">
+        <div className="flex items-center mt-2">
           <div className="flex-1 border" />
           <span className="mr-4 ml-4">or</span>
           <div className="flex-1 border" />
