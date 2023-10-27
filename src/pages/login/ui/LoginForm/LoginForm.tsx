@@ -27,8 +27,6 @@ const LoginForm: FC = () => {
   const { trigger: register, isMutating: isRegisterMutating } = useRegister();
   const { trigger: login, isMutating: isLoginMutating } = useLogin();
 
-  console.log('errors', errors);
-
   const onSubmit = async v => {
     console.log(v);
     // 注册后再自动登录
@@ -84,6 +82,7 @@ const LoginForm: FC = () => {
           control={control}
           render={({ field: { value, onChange } }) => (
             <Input
+              autoComplete="off"
               minLength={6}
               showCount
               maxLength={12}
@@ -110,6 +109,7 @@ const LoginForm: FC = () => {
           control={control}
           render={({ field: { value, onChange } }) => (
             <Input.Password
+              autoComplete="off"
               minLength={6}
               showCount
               maxLength={12}
@@ -144,6 +144,7 @@ const LoginForm: FC = () => {
               name="confirmPassword"
               render={({ field: { value, onChange } }) => (
                 <Input.Password
+                  autoComplete="off"
                   minLength={6}
                   showCount
                   maxLength={12}
