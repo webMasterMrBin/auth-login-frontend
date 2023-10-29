@@ -125,12 +125,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|svg|woff|woff2|ttf|eot)$/,
-        use: [
-          {
-            loader: 'url-loader?limit=100000',
-          },
-        ],
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ],
   },
