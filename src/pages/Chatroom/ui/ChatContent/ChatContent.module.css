@@ -1,0 +1,5 @@
+.container {
+  background: #101214;
+  height: calc(100% - 170px);
+  overflow: auto;
+}

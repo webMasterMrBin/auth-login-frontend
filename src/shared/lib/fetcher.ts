@@ -5,7 +5,7 @@ const fetcher = (url: string, args: any) => {
   return fetch(url, args)
     .then(async res => {
       const result = await res.json();
-      message.success(result.message);
+      // message.success(result.message);
       return result;
     })
     .catch(err => Promise.reject(err));
