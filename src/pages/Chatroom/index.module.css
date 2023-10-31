@@ -1,5 +1,7 @@
 .container {
   height: calc(100vh - 60px);
-  padding: 0 200px;
+  padding: 0 100px;
   background: #25272c;
+  display: flex;
+  
 }

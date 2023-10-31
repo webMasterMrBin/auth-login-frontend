@@ -1,35 +1,18 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, useRef } from 'react';
+import { useContextSelector } from 'use-context-selector';
 import { ChatContent } from '../ChatContent/ChatContent';
 import { ChatInput } from '../ChatInput/ChatInput';
+import { WebsocketContext } from '../../WebSocketProvider';
 
 const ChatRoom: FC = () => {
-  const [socket, setSocket] = useState(null);
-
-  useEffect(() => {
-    const ws = new WebSocket('ws://127.0.0.1:3000');
-    setSocket(ws);
-
-    ws.onopen = e => {
-      console.log('连接已建立');
-      // 发送数据到服务器
-      // ws.send('Hello Server!');
-    };
-
-    // 当连接关闭时触发
-    ws.onclose = e => {
-      console.log('连接已关闭');
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
-
+  const isStartReconnect = useContextSelector(WebsocketContext, state => state.isStartReconnect);
   return (
-    <>
-      <ChatContent socket={socket} />
-      <ChatInput socket={socket} />
-    </>
+    <div className="flex-1">
+      {isStartReconnect && <span className="text-white">something wrong reconnect....</span>}
+      {/* {reConnecWSCountRef.current > 5 && <span className="text-white">can't connect chat server, please retry</span>} */}
+      <ChatContent />
+      <ChatInput />
+    </div>
   );
 };
 

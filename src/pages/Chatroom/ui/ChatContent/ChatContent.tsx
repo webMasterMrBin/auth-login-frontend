@@ -1,23 +1,15 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
+import { useContextSelector } from 'use-context-selector';
 import { container } from './ChatContent.module.css';
 import { ChatContentItem } from './ChatContentItem';
+import { WebsocketContext } from '../../WebSocketProvider';
 
-const ChatContent: FC<{ socket: WebSocket }> = ({ socket }) => {
-  const [content, setContent] = useState([]);
-
-  useEffect(() => {
-    if (socket) {
-      // 当接收到服务器发送的消息时触发
-      socket.onmessage = e => {
-        console.log('接收到消息: ' + e.data);
-        setContent(pre => [...pre, e.data]);
-      };
-    }
-  }, [socket]);
+const ChatContent: FC = () => {
+  const chatContent = useContextSelector(WebsocketContext, state => state.chatContent);
 
   return (
     <div className={container}>
-      {content.map((v, i) => (
+      {chatContent.map((v, i) => (
         <ChatContentItem key={i} data={v} />
       ))}
     </div>

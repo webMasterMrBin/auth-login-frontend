@@ -1,5 +1,5 @@
 import React, { FC, useState, useReducer, useEffect } from 'react';
-import { Input, Spin } from 'antd';
+import { Input, Spin, message } from 'antd';
 import { UserOutlined, KeyOutlined } from '@ant-design/icons';
 import { Google, Github } from './Icons';
 import { container } from './LoginForm.module.css';
@@ -43,7 +43,7 @@ const LoginForm: FC = () => {
       });
     }
 
-    await login({
+    const data = await login({
       params: {
         username: v.username,
         password: v.password,
@@ -54,7 +54,11 @@ const LoginForm: FC = () => {
       },
     });
 
-    location.href = '/chatroom';
+    if (data?.status) {
+      location.href = '/chatroom';
+    } else {
+      message.error('invalid username or password');
+    }
   };
 
   const handleToggleType = () => {
