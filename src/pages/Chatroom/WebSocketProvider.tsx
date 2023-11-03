@@ -5,7 +5,13 @@ const WebsocketContext = createContext(null);
 
 const WebSocketProvider: FC<React.PropsWithChildren> = ({ children }) => {
   const [socket, setSocket] = useState(null);
+  // 聊天内容
   const [chatContent, setChatContent] = useState([]);
+  // 登录的用户数量
+  const [usersCount, setUsersCount] = useState(0);
+  // 登录的所有所有用户信息
+  const [loginUsers, setLoginUsers] = useState<{ username: string; avator: string; id: string }[]>([]);
+
   const [isStartReconnect, setIsStartReconnect] = useState(false);
   const reConnecWSCountRef = useRef(0);
   const isNeedConnectRef = useRef(true);
@@ -28,36 +34,32 @@ const WebSocketProvider: FC<React.PropsWithChildren> = ({ children }) => {
       setSocket(ws);
 
       ws.onopen = () => {
-        console.log('连接已建立');
         setIsStartReconnect(false);
-        ws.send(JSON.stringify({ type: 'logged' }));
+        ws.send(JSON.stringify({ type: 'login' }));
       };
 
       // 当连接关闭时触发
       ws.onclose = () => {
-        console.log('连接已关闭');
         if (isNeedConnectRef.current) {
           reConnectWS();
         }
       };
 
       ws.onerror = () => {
-        console.log('连接错误');
         if (isNeedConnectRef.current) {
           reConnectWS();
         }
       };
 
       ws.onmessage = e => {
-        console.log('接收到消息: ' + e.data);
-        const { data, username } = JSON.parse(e.data || '{}');
-        // 聊天内容;
-        if (data?.type === 'chat') {
-          setChatContent(pre => [...pre, { username, content: data.content }]);
+        const { type, usersCount, loginUsers, username, content } = JSON.parse(e.data || '{}');
+        if (['login', 'logout'].includes(type)) {
+          setUsersCount(usersCount);
+          setLoginUsers(loginUsers);
         }
-        // 登录聊天室ui提示
-        if (data?.type === 'logged') {
-          console.log(`${username} logged`);
+
+        if (type === 'chat') {
+          setChatContent(pre => [...pre, { username, content }]);
         }
       };
 
@@ -72,7 +74,7 @@ const WebSocketProvider: FC<React.PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <WebsocketContext.Provider value={{ socket, isStartReconnect, setIsStartReconnect, chatContent }}>
+    <WebsocketContext.Provider value={{ socket, isStartReconnect, chatContent, usersCount, loginUsers }}>
       {children}
     </WebsocketContext.Provider>
   );

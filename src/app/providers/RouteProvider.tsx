@@ -9,18 +9,18 @@ import { Skeleton } from 'antd';
 const RouteProvider: FC = () => {
   return (
     <BrowserRouter>
-      <StrictMode>
+      {/* <StrictMode>
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/chatroom" component={Chat} />
           <Route path="*" component={() => <div>not found</div>} />
         </Switch>
-      </StrictMode>
-      {/* <Switch>
+      </StrictMode> */}
+      <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/chatroom" component={Chat} />
         <Route path="*" component={() => <div>not found</div>} />
-      </Switch> */}
+      </Switch>
     </BrowserRouter>
   );
 };
