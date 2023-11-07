@@ -30,7 +30,9 @@ const WebSocketProvider: FC<React.PropsWithChildren> = ({ children }) => {
     };
 
     const connectWS = () => {
-      const ws = new WebSocket('ws://127.0.0.1:3000');
+      const ws = new WebSocket(
+        process.env.NODE_ENV === 'development' ? 'ws://127.0.0.1:3000' : 'ws://47.110.129.12:3000',
+      );
       setSocket(ws);
 
       ws.onopen = () => {

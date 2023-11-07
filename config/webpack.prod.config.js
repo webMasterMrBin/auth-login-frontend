@@ -7,7 +7,7 @@ module.exports = {
   // 输出
   output: {
     path: path.resolve(__dirname, '../build'),
-    publicPath: '/build/',
+    publicPath: '/public/',
     filename: '[name].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
     libraryTarget: 'umd',
@@ -89,29 +89,29 @@ module.exports = {
       },
     ],
   },
-  // optimization: {
-  //   splitChunks: {
-  //     // include all types of chunks
-  //     chunks: "all",
-  //     // 重复打包问题
-  //     cacheGroups: {
-  //       common: {
-  //         // src下同步引入的模块，全部放到common.js中
-  //         name: "common",
-  //         test: /[\\/]src[\\/]/,
-  //         minSize: 1,
-  //         chunks: "initial",
-  //         priority: 5
-  //       },
-  //       vendors: {
-  //         // node_modules里的代码
-  //         test: /[\\/]node_modules[\\/]/,
-  //         chunks: "all",
-  //         name: 'vendors',
-  //         priority: 10, // 优先级
-  //         enforce: true,
-  //       },
-  //     },
-  //   },
-  // }
+  optimization: {
+    splitChunks: {
+      // include all types of chunks
+      chunks: "all",
+      // 重复打包问题
+      cacheGroups: {
+        common: {
+          // src下同步引入的模块，全部放到common.js中
+          name: "common",
+          test: /[\\/]src[\\/]/,
+          minSize: 1,
+          chunks: "initial",
+          priority: 5
+        },
+        vendors: {
+          // node_modules里的代码
+          test: /[\\/]node_modules[\\/]/,
+          chunks: "all",
+          name: 'vendors',
+          priority: 10, // 优先级
+          enforce: true,
+        },
+      },
+    },
+  }
 }
